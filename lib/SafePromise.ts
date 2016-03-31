@@ -2,7 +2,7 @@ export default class SafePromise<T> implements Promise<T> {
 
     public static defaultErrorHandler: (e: any) => void = (e: any) => {
         console.error("(using default promise error handler)");
-        setImmediate(() => {
+        setTimeout(() => {
             throw e;
         });
     };
@@ -31,7 +31,7 @@ export default class SafePromise<T> implements Promise<T> {
             }
         } catch (e) {
             console.error('Error while handling error in promise (yo dawg).');
-            console.error(e.stack);
+            setTimeout(() => { throw e; });
         }
     }
 
