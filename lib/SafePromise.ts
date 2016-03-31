@@ -40,7 +40,6 @@ export default class SafePromise<T> implements Promise<T> {
     }
 
     catch(onrejected?:(reason?:any)=>(Promise<T>|T|void)):Promise<T> {
-        console.log("DEBUG: Catching promise errors!");
         this.onrejected = <any> onrejected;
         return this;
     }
