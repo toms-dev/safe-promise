@@ -35,14 +35,14 @@ export default class SafePromise<T> implements Promise<T> {
         }
     }
 
-    then(onfulfilled?:(value?:T)=>(Promise<T>|T), onrejected?:(reason:any)=>(PromiseLike<T>|T)):Promise<T> {
-        this.subPromise.then(onfulfilled, onrejected);
+    then(onfulfilled?:(value?:T)=>(Promise<T>|T|void), onrejected?:(reason:any)=>(PromiseLike<T>|T)):Promise<T> {
+        this.subPromise.then(<any> onfulfilled, onrejected);
         return this;
     }
 
-    catch(onrejected?:(reason:any)=>(Promise<T>|T)):Promise<T> {
+    catch(onrejected?:(reason?:any)=>(Promise<T>|T|void)):Promise<T> {
         console.log("DEBUG: Catching promise errors!");
-        this.onrejected = onrejected;
+        this.onrejected = <any> onrejected;
         return this;
     }
 }
