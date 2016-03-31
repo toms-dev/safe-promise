@@ -20,7 +20,6 @@ export default class SafePromise<T> implements Promise<T> {
     }
 
     private onCatch(reason: any): void {
-        console.error("Promise error caught!");
         // Wrap the error handling as it may also fail.
         try {
             if (this.onrejected) {
