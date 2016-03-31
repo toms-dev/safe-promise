@@ -1,7 +1,7 @@
 {
   "name": "safe-promise",
   "version": "1.0.0",
-  "description": "",
+  "description": "ES6 Promise wrapper that takes care of handling errors instead of swallowing them.",
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "typings install && tsc && typings bundle --out dist/typings --name safe-promise ;",
