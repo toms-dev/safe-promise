@@ -1,0 +1,15 @@
+{
+  "name": "safe-promise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublish": "typings install && tsc && typings bundle --out dist/typings --name safe-promise ;",
+    "test": "echo \"Error: no test specified\""
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Tom Guillermin <tom@tomsdev.com>",
+  "license": "ISC"
+}
