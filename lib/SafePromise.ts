@@ -1,5 +1,7 @@
 export default class SafePromise<T> implements Promise<T> {
 
+	private enabled: boolean;
+
     public static defaultErrorHandler: (e: any) => void = (e: any) => {
         console.error("(using default promise error handler)");
         setTimeout(() => {
@@ -8,10 +10,10 @@ export default class SafePromise<T> implements Promise<T> {
     };
 
     private subPromise: Promise<T>;
-    private onrejected: (reason:any)=>(Promise<T>|T);
 
     constructor(callback: (resolve : (value?: T | Thenable<T>) => void, reject: (error?: any) => void) => void) {
         this.subPromise = new Promise<T>(callback);
+        this.enabled = true;
 
         // Wrap the catch with a default behavior
         this.subPromise.catch((reason: any) => {
@@ -20,17 +22,9 @@ export default class SafePromise<T> implements Promise<T> {
     }
 
     private onCatch(reason: any): void {
-        // Wrap the error handling as it may also fail.
-        try {
-            if (this.onrejected) {
-                this.onrejected(reason);
-            }
-            else if (SafePromise.defaultErrorHandler) {
-                SafePromise.defaultErrorHandler(reason)
-            }
-        } catch (e) {
-            console.error('Error while handling error in promise (yo dawg).');
-            setTimeout(() => { throw e; });
+    	if (! this.enabled) return;
+		if (SafePromise.defaultErrorHandler) {
+        	SafePromise.defaultErrorHandler(reason)
         }
     }
 
@@ -40,7 +34,16 @@ export default class SafePromise<T> implements Promise<T> {
     }
 
     catch(onrejected?:(reason?:any)=>(Promise<T>|T|void)):Promise<T> {
-        this.onrejected = <any> onrejected;
+    	this.enabled = false;
+		this.subPromise.catch((reason: any) => {
+			// Wrap the error handling as it may also fail.
+		    try {
+				onrejected(reason);
+		    } catch (e) {
+		        console.error('Error while handling error in promise catch (yo dawg).');
+		        setTimeout(() => { throw e; });
+		    }		
+		});
         return this;
     }
 }
