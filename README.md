@@ -15,7 +15,7 @@ npm install safe-promise
 ```
 
 ```Javascript
-var Promise = require('safe-promise');
+var Promise = require('safe-promise').default;
 ```
 
 ## Requirements
