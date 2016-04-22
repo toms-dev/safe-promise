@@ -53,7 +53,7 @@ export default class SafePromise<T> implements Promise<T> {
 		    try {
 				onrejected(reason);
 		    } catch (e) {
-		        console.error('Error while handling error in promise catch (yo dawg).');
+		        console.error('Error while handling error in promise catch (#inception).');
 		        setTimeout(() => { throw e; });
 		    }		
 		});
