@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "typings install && tsc && typings bundle --out dist/typings --name safe-promise ;",
-    "test": "echo \"Error: no test specified\""
+    "test": "mocha"
   },
   "files": [
     "dist"
@@ -14,6 +14,7 @@
   "author": "Tom Guillermin <tom@tomsdev.com>",
   "license": "ISC",
   "dependencies": {
+    "mocha": "^2.5.3",
     "typescript": "^1.8.9",
     "typings": "^0.7.11"
   }
