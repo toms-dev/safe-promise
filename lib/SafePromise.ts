@@ -34,6 +34,7 @@ export default class SafePromise<T> implements Promise<T> {
 		    		return (<any> onfulfilled)(value) || this;
 		    	} catch(e) {
 		    		this.onCatch(e);
+		    		throw e;
 		    	}
         	},
         	(reason: any) => {
@@ -41,6 +42,7 @@ export default class SafePromise<T> implements Promise<T> {
 		    		onrejected(reason);
 		    	} catch(e) {
 		    		this.onCatch(e);
+		    		throw e;
 		    	}
 		    });
     }
